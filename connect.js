@@ -78,8 +78,15 @@ const detailsFetch = (id) => {
 const detailsShow = (data) => {
   const showModal = document.getElementById("show-modal");
   console.log(data);
-  console.log(data.pricing[0].price, data.pricing[0].plan);
-
+  console.log(data.integrations);
+  let features = "";
+  for (let i = 1; i <= Object.keys(data.features).length; i++) {
+    features += "<li>" + data.features[i].feature_name + "</li>";
+  }
+  let integrations = "";
+  for (let i = 0; i < data.integrations.length; i++) {
+    integrations += "<li>" + data.integrations[i] + "</li>";
+  }
   showModal.innerHTML = `
   <div class="modal-header">
                 <button
@@ -132,23 +139,23 @@ const detailsShow = (data) => {
                       <div>
                         <h6>Features</h6>
                         <ul>
-                          <li>Customize response</li>
+                          ${features ? features : "No Data Found"}
                         </ul>
                       </div>
                       <div>
                         <h6>Integrations</h6>
                         <ul>
-                          <li>No Data Found</li>
+                        ${integrations ? integrations : "No Data Found"}
                         </ul>
                       </div>
                     </div>
                   </div>
                 </div>
-                <div class="card" style="width: 18rem">
+                <div class="card" style="width: 22rem">
                   <div>
                     <img
                       style="width: 100%; height: 15rem"
-                      src="Bleach1.jpg"
+                      src="${data.image_link[0]}"
                       class="card-img-top"
                       alt="..."
                     />
@@ -161,12 +168,18 @@ const detailsShow = (data) => {
 
                   <div class="card-body text-center">
                     <h5>
-                      Some quick example text to build on the card title and
-                      make up the bulk of the card's content.
+                      ${
+                        data.input_output_examples[0].input
+                          ? data.input_output_examples[0].input
+                          : "Can you give any example?"
+                      }
                     </h5>
                     <p class="fs-6">
-                      I'm doing well, thank you for asking. How can I assist you
-                      today?
+                    ${
+                      data.input_output_examples[0].output
+                        ? data.input_output_examples[0].output
+                        : "No! Not Yet! Take a break!!!"
+                    }
                     </p>
                   </div>
                 </div>
