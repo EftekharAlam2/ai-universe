@@ -52,6 +52,7 @@ const showData = (data, dataLimit) => {
                     class="btn btn-light" data-bs-toggle="modal"
                     data-bs-target="#exampleModal""
                     style="border-radius: 50%"
+                    onclick="detailsFetch('${element.id}')"
                   >
                     <i class="fa-solid fa-arrow-right text-danger"></i>
                    
@@ -65,6 +66,96 @@ const showData = (data, dataLimit) => {
   });
 
   loadSpinner(false);
+};
+
+const detailsFetch = (id) => {
+  const url1 = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
+  fetch(url1)
+    .then((res) => res.json())
+    .then((data) => detailsShow(data.data));
+};
+
+const detailsShow = (data) => {
+  const showModal = document.getElementById("show-modal");
+  console.log(data);
+  showModal.innerHTML = `
+  <div class="modal-header">
+                <button
+                  type="button"
+                  class="btn-close"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </div>
+  <div
+                class="modal-body d-flex flex-column flex-lg-row gap-4 mx-auto"
+              >
+                <div class="card border border-danger" style="width: 22rem">
+                  <div class="card-body">
+                    <h6>
+                      ${
+                        data.accuracy.descripton
+                          ? data.accuracy.descripton
+                          : "No Data Found"
+                      }
+                    </h6>
+                    <div class="container text-center mt-3">
+                      <div class="row gap-2">
+                        <div class="col border border-1 rounded text-success">
+                          /Basic
+                        </div>
+                        <div class="col border border-1 rounded text-danger">
+                          /month pro
+                        </div>
+                        <div class="col border border-1 rounded text-info">
+                          /Enterprise
+                        </div>
+                      </div>
+                    </div>
+                    <div class="d-flex mt-4">
+                      <div>
+                        <h6>Features</h6>
+                        <ul>
+                          <li>Customize response</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h6>Integrations</h6>
+                        <ul>
+                          <li>No Data Found</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card" style="width: 18rem">
+                  <div>
+                    <img
+                      style="width: 100%; height: 15rem"
+                      src="Bleach1.jpg"
+                      class="card-img-top"
+                      alt="..."
+                    />
+                    <p
+                      class="text-white position-absolute top-0 end-0 bg-danger p-1 border-0 rounded m-1"
+                    >
+                      Accuracy
+                    </p>
+                  </div>
+
+                  <div class="card-body text-center">
+                    <h5>
+                      Some quick example text to build on the card title and
+                      make up the bulk of the card's content.
+                    </h5>
+                    <p class="fs-6">
+                      I'm doing well, thank you for asking. How can I assist you
+                      today?
+                    </p>
+                  </div>
+                </div>
+              </div>
+  `;
 };
 
 const loadSpinner = (isLoading) => {
