@@ -16,6 +16,14 @@ const showData = (data, dataLimit) => {
     data = data.slice(0, 6);
     seeMore.classList.remove("d-none");
   }
+  // console.log(data[0].published_in);
+  // let arra = [];
+  // for (let n = 0; n < 12; n++) {
+  //   let value1 = data[n].published_in;
+  //   arra.push(value1);
+  // }
+  // console.log(arra);
+
   data.forEach((element) => {
     let html = "";
     for (let i = 0; i < element.features.length; i++) {
@@ -24,15 +32,19 @@ const showData = (data, dataLimit) => {
     getClass.innerHTML += `
     <div class="col">
           <div class="card">
-            <img src="${element.image}" style="width: 100%; height: 15rem" class="card-img-top" alt="..." />
+            <img src="${
+              element.image
+            }" style="width: 100%; height: 15rem" class="card-img-top" alt="..." />
             <div class="card-body">
               <h5 class="card-title">Features</h5>
-              <ol>${html}</ol>
+              <ol>${html ? html : "No Data Found"}</ol>
               <hr />
               <div class="d-flex justify-content-between">
                 <div>
                   <h5 class="card-title">${element.name}</h5>
-                  <i class="fa-solid fa-calendar-days"></i><span> ${element.published_in}</span>
+                  <i class="fa-solid fa-calendar-days"></i><span> ${
+                    element.published_in
+                  }</span>
                 </div>
                 <div class="my-auto">
                   <button
@@ -48,10 +60,6 @@ const showData = (data, dataLimit) => {
           </div>
         </div>
     `;
-    // const addList = document.getElementById("list-add");
-    // element.features.forEach((element2) => {
-    //   addList.innerHTML += `<li>${element2}</li>`;
-    // });
   });
 
   loadSpinner(false);
