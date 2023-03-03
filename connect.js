@@ -9,6 +9,7 @@ const showData = (data, dataLimit) => {
   const getClass = document.getElementById("insert-div");
   getClass.innerHTML = "";
   const seeMore = document.getElementById("see-more");
+
   if (dataLimit && data.length > 6) {
     seeMore.classList.add("d-none");
   } else {
@@ -16,16 +17,17 @@ const showData = (data, dataLimit) => {
     seeMore.classList.remove("d-none");
   }
   data.forEach((element) => {
-    console.log(element);
-
+    let html = "";
+    for (let i = 0; i < element.features.length; i++) {
+      html += "<li>" + element.features[i] + "</li>";
+    }
     getClass.innerHTML += `
     <div class="col">
           <div class="card">
             <img src="${element.image}" style="width: 100%; height: 15rem" class="card-img-top" alt="..." />
             <div class="card-body">
               <h5 class="card-title">Features</h5>
-              <ol id="list-add">
-              </ol>
+              <ol>${html}</ol>
               <hr />
               <div class="d-flex justify-content-between">
                 <div>
@@ -46,7 +48,12 @@ const showData = (data, dataLimit) => {
           </div>
         </div>
     `;
+    // const addList = document.getElementById("list-add");
+    // element.features.forEach((element2) => {
+    //   addList.innerHTML += `<li>${element2}</li>`;
+    // });
   });
+
   loadSpinner(false);
 };
 
