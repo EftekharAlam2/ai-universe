@@ -24,16 +24,8 @@
     </header>
 
     <main class="mx-4 mb-4">
-      <section>
+      <section style="width: 75%">
         <!-- Button trigger modal -->
-        <button
-          type="button"
-          class="btn btn-primary"
-          data-bs-toggle="modal"
-          data-bs-target="#exampleModal"
-        >
-          Launch demo modal
-        </button>
 
         <!-- Modal -->
         <div
@@ -43,12 +35,11 @@
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
         >
-          <div class="modal-dialog">
+          <div
+            class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg"
+          >
             <div class="modal-content">
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">
-                  Modal title
-                </h1>
                 <button
                   type="button"
                   class="btn-close"
@@ -56,18 +47,38 @@
                   aria-label="Close"
                 ></button>
               </div>
-              <div class="modal-body">...</div>
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button type="button" class="btn btn-primary">
-                  Save changes
-                </button>
+              <div
+                class="modal-body d-flex flex-column flex-lg-row gap-4 mx-auto"
+              >
+                <div class="card border border-danger" style="width: 22rem">
+                  <div class="card-body">
+                    <h6>
+                      Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                      Ipsum nisi totam hic sint consequuntur atque nesciunt
+                      optio vero velit recusandae!
+                    </h6>
+                    <div class="container text-center mt-2">
+                      <div class="row gap-2">
+                        <div class="col border border-1 rounded">/Basic</div>
+                        <div class="col border border-1 rounded">
+                          /month pro
+                        </div>
+                        <div class="col border border-1 rounded">
+                          /Enterprise
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="card" style="width: 18rem">
+                  <img src="..." class="card-img-top" alt="..." />
+                  <div class="card-body">
+                    <p class="card-text">
+                      Some quick example text to build on the card title and
+                      make up the bulk of the card's content.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

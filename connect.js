@@ -49,10 +49,12 @@ const showData = (data, dataLimit) => {
                 <div class="my-auto">
                   <button
                     type="button"
-                    class="btn btn-light"
+                    class="btn btn-light" data-bs-toggle="modal"
+                    data-bs-target="#exampleModal""
                     style="border-radius: 50%"
                   >
                     <i class="fa-solid fa-arrow-right text-danger"></i>
+                   
                   </button>
                 </div>
               </div>
