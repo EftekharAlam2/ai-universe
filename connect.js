@@ -73,7 +73,6 @@ document.getElementById("sort-by-date").addEventListener("click", function () {
     const seeMore = document.getElementById("see-more");
     seeMore.classList.add("d-none");
     data.sort((a, b) => new Date(b.published_in) - new Date(a.published_in));
-    console.log(data);
 
     data.forEach((element) => {
       let html = "";
