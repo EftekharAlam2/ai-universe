@@ -12,20 +12,9 @@ const showData = (data, dataLimit) => {
 
   if (dataLimit && data.length > 6) {
     seeMore.classList.add("d-none");
-    // const arra12 = [];
-    // for (let n = 0; n < 12; n++) {
-    //   arra12.push(data[n].published_in);
-    // }
-    // console.log(arra12);
-    // data.sort((a,b) => new Date(arra12))
   } else {
     data = data.slice(0, 6);
     seeMore.classList.remove("d-none");
-    // const arra6 = [];
-    // for (let n = 0; n < 6; n++) {
-    //   arra6.push(data[n].published_in);
-    // }
-    // console.log(arra6);
   }
 
   data.forEach((element) => {
@@ -72,6 +61,63 @@ const showData = (data, dataLimit) => {
   loadSpinner(false);
 };
 
+document.getElementById("sort-by-date").addEventListener("click", function () {
+  const url1 = `https://openapi.programming-hero.com/api/ai/tools`;
+  fetch(url1)
+    .then((res) => res.json())
+    .then((data) => sortData(data.data.tools));
+
+  const sortData = (data) => {
+    const getClass = document.getElementById("insert-div");
+    getClass.innerHTML = "";
+    const seeMore = document.getElementById("see-more");
+    seeMore.classList.add("d-none");
+    data.sort((a, b) => new Date(b.published_in) - new Date(a.published_in));
+    console.log(data);
+
+    data.forEach((element) => {
+      let html = "";
+      for (let i = 0; i < element.features.length; i++) {
+        html += "<li>" + element.features[i] + "</li>";
+      }
+      getClass.innerHTML += `
+      <div class="col">
+            <div class="card">
+              <img src="${
+                element.image
+              }" style="width: 100%; height: 25rem" class="card-img-top" alt="..." />
+              <div class="card-body">
+                <h5 class="card-title">Features</h5>
+                <ol>${html ? html : "No Data Found"}</ol>
+                <hr />
+                <div class="d-flex justify-content-between">
+                  <div>
+                    <h5 class="card-title">${element.name}</h5>
+                    <i class="fa-solid fa-calendar-days"></i><span> ${
+                      element.published_in
+                    }</span>
+                  </div>
+                  <div class="my-auto">
+                    <button
+                      type="button"
+                      class="btn btn-light" data-bs-toggle="modal"
+                      data-bs-target="#exampleModal""
+                      style="border-radius: 50%"
+                      onclick="detailsFetch('${element.id}')"
+                    >
+                      <i class="fa-solid fa-arrow-right text-danger"></i>
+                     
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      `;
+    });
+  };
+});
+
 const detailsFetch = (id) => {
   const url1 = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
   fetch(url1)
@@ -81,7 +127,6 @@ const detailsFetch = (id) => {
 
 const detailsShow = (data) => {
   const showModal = document.getElementById("show-modal");
-  console.log(data);
   let features = "";
   for (let i = 1; i <= Object.keys(data.features).length; i++) {
     features += "<li>" + data.features[i].feature_name + "</li>";
@@ -146,11 +191,7 @@ const detailsShow = (data) => {
                 <div class="card border border-danger" style="width: 22rem">
                   <div class="card-body">
                     <h6>
-                      ${
-                        data.accuracy.description
-                          ? data.accuracy.description
-                          : "No Data Found"
-                      }
+                      ${data.description ? data.description : "No Data Found"}
                     </h6>
                     <div class="container text-center mt-3">
                       <div class="row gap-2">
