@@ -34,7 +34,7 @@ const showData = (data, dataLimit) => {
           <div class="card">
             <img src="${
               element.image
-            }" style="width: 100%; height: 15rem" class="card-img-top" alt="..." />
+            }" style="width: 100%; height: 25rem" class="card-img-top" alt="..." />
             <div class="card-body">
               <h5 class="card-title">Features</h5>
               <ol>${html ? html : "No Data Found"}</ol>
@@ -78,15 +78,57 @@ const detailsFetch = (id) => {
 const detailsShow = (data) => {
   const showModal = document.getElementById("show-modal");
   console.log(data);
-  console.log(data.integrations);
   let features = "";
   for (let i = 1; i <= Object.keys(data.features).length; i++) {
     features += "<li>" + data.features[i].feature_name + "</li>";
   }
-  let integrations = "";
-  for (let i = 0; i < data.integrations.length; i++) {
-    integrations += "<li>" + data.integrations[i] + "</li>";
+
+  let pricing1 = "";
+  let pricing2 = "";
+  let pricing3 = "";
+  let noPricing1 = "";
+  let noPricing2 = "";
+  let noPricing3 = "";
+  if (data.pricing == null) {
+    noPricing1 = "Free of Cost/" + " " + "Basic";
+    noPricing2 = "Free of Cost/" + " " + "Pro";
+    noPricing3 = "Free of Cost/" + " " + "Enterprise";
+  } else {
+    pricing1 = data.pricing[0].price + " " + data.pricing[0].plan;
+    pricing2 = data.pricing[1].price + " " + data.pricing[1].plan;
+    pricing3 = data.pricing[2].price + " " + data.pricing[2].plan;
   }
+
+  let noIntegrations = "";
+  let integrations = "";
+  if (data.integrations == null) {
+    noIntegrations = "No Data Found";
+  } else {
+    for (let i = 0; i < data.integrations.length; i++) {
+      integrations += "<li>" + data.integrations[i] + "</li>";
+    }
+  }
+
+  const acuuracy1 = document.querySelector(".acuuracy");
+  let showAccuracy = "";
+  if (data.accuracy.score == null) {
+    acuuracy1.classList.add("d-none");
+  } else {
+    showAccuracy = data.accuracy.score * 100 + "% acuuracy";
+  }
+
+  let input = "";
+  let output = "";
+  let noInput = "";
+  let noOutput = "";
+  if (data.input_output_examples == null) {
+    noInput = "Can you give any example?";
+    noOutput = "No! Not Yet! Take a break!!!";
+  } else {
+    input = data.input_output_examples[0].input;
+    output = data.input_output_examples[0].output;
+  }
+
   showModal.innerHTML = `
   <div class="modal-header">
                 <button
@@ -111,27 +153,13 @@ const detailsShow = (data) => {
                     <div class="container text-center mt-3">
                       <div class="row gap-2">
                         <div class="col border border-1 rounded text-success p-2">
-                          ${
-                            data.pricing[0].price + " " + data.pricing[0].plan
-                              ? data.pricing[0].price +
-                                " " +
-                                data.pricing[0].plan
-                              : "Free of Cost/" + " " + "Basic"
-                          }
+                          ${pricing1 ? pricing1 : noPricing1}
                         </div>
                         <div class="col border border-1 rounded text-danger p-2">
-                        ${
-                          data.pricing[1].price + " " + data.pricing[1].plan
-                            ? data.pricing[1].price + " " + data.pricing[1].plan
-                            : "Free of Cost/" + " " + "Pro"
-                        }
+                        ${pricing2 ? pricing2 : noPricing2}
                         </div>
                         <div class="col border border-1 rounded text-info p-2">
-                        ${
-                          data.pricing[2].price + " " + data.pricing[2].plan
-                            ? data.pricing[2].price + " " + data.pricing[2].plan
-                            : "Free of Cost/" + " " + "Enterprise"
-                        }
+                        ${pricing3 ? pricing3 : noPricing3}
                         </div>
                       </div>
                     </div>
@@ -145,7 +173,7 @@ const detailsShow = (data) => {
                       <div>
                         <h6>Integrations</h6>
                         <ul>
-                        ${integrations ? integrations : "No Data Found"}
+                        ${integrations ? integrations : noIntegrations}
                         </ul>
                       </div>
                     </div>
@@ -154,32 +182,31 @@ const detailsShow = (data) => {
                 <div class="card" style="width: 22rem">
                   <div>
                     <img
+                    class="container1"
                       style="width: 100%; height: 15rem"
-                      src="${data.image_link[0]}"
+                      src=" ${
+                        data.image_link[0]
+                          ? data.image_link[0]
+                          : "No Image Found"
+                      }"
                       class="card-img-top"
                       alt="..."
                     />
+                    <div class="acuuracy">
                     <p
                       class="text-white position-absolute top-0 end-0 bg-danger p-1 border-0 rounded m-1"
                     >
-                      Accuracy
+                      ${showAccuracy}
                     </p>
+                    </div>
                   </div>
 
                   <div class="card-body text-center">
                     <h5>
-                      ${
-                        data.input_output_examples[0].input
-                          ? data.input_output_examples[0].input
-                          : "Can you give any example?"
-                      }
+                      ${input ? input : noInput}
                     </h5>
                     <p class="fs-6">
-                    ${
-                      data.input_output_examples[0].output
-                        ? data.input_output_examples[0].output
-                        : "No! Not Yet! Take a break!!!"
-                    }
+                    ${output ? output : noOutput}
                     </p>
                   </div>
                 </div>
