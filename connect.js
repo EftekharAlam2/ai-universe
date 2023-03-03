@@ -78,6 +78,8 @@ const detailsFetch = (id) => {
 const detailsShow = (data) => {
   const showModal = document.getElementById("show-modal");
   console.log(data);
+  console.log(data.pricing[0].price, data.pricing[0].plan);
+
   showModal.innerHTML = `
   <div class="modal-header">
                 <button
@@ -94,21 +96,35 @@ const detailsShow = (data) => {
                   <div class="card-body">
                     <h6>
                       ${
-                        data.accuracy.descripton
-                          ? data.accuracy.descripton
+                        data.accuracy.description
+                          ? data.accuracy.description
                           : "No Data Found"
                       }
                     </h6>
                     <div class="container text-center mt-3">
                       <div class="row gap-2">
-                        <div class="col border border-1 rounded text-success">
-                          /Basic
+                        <div class="col border border-1 rounded text-success p-2">
+                          ${
+                            data.pricing[0].price + " " + data.pricing[0].plan
+                              ? data.pricing[0].price +
+                                " " +
+                                data.pricing[0].plan
+                              : "Free of Cost/" + " " + "Basic"
+                          }
                         </div>
-                        <div class="col border border-1 rounded text-danger">
-                          /month pro
+                        <div class="col border border-1 rounded text-danger p-2">
+                        ${
+                          data.pricing[1].price + " " + data.pricing[1].plan
+                            ? data.pricing[1].price + " " + data.pricing[1].plan
+                            : "Free of Cost/" + " " + "Pro"
+                        }
                         </div>
-                        <div class="col border border-1 rounded text-info">
-                          /Enterprise
+                        <div class="col border border-1 rounded text-info p-2">
+                        ${
+                          data.pricing[2].price + " " + data.pricing[2].plan
+                            ? data.pricing[2].price + " " + data.pricing[2].plan
+                            : "Free of Cost/" + " " + "Enterprise"
+                        }
                         </div>
                       </div>
                     </div>
