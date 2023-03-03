@@ -12,17 +12,21 @@ const showData = (data, dataLimit) => {
 
   if (dataLimit && data.length > 6) {
     seeMore.classList.add("d-none");
+    // const arra12 = [];
+    // for (let n = 0; n < 12; n++) {
+    //   arra12.push(data[n].published_in);
+    // }
+    // console.log(arra12);
+    // data.sort((a,b) => new Date(arra12))
   } else {
     data = data.slice(0, 6);
     seeMore.classList.remove("d-none");
+    // const arra6 = [];
+    // for (let n = 0; n < 6; n++) {
+    //   arra6.push(data[n].published_in);
+    // }
+    // console.log(arra6);
   }
-  // console.log(data[0].published_in);
-  // let arra = [];
-  // for (let n = 0; n < 12; n++) {
-  //   let value1 = data[n].published_in;
-  //   arra.push(value1);
-  // }
-  // console.log(arra);
 
   data.forEach((element) => {
     let html = "";
@@ -109,10 +113,8 @@ const detailsShow = (data) => {
     }
   }
 
-  const acuuracy1 = document.querySelector(".acuuracy");
   let showAccuracy = "";
   if (data.accuracy.score == null) {
-    acuuracy1.classList.add("d-none");
   } else {
     showAccuracy = data.accuracy.score * 100 + "% acuuracy";
   }
@@ -192,13 +194,11 @@ const detailsShow = (data) => {
                       class="card-img-top"
                       alt="..."
                     />
-                    <div class="acuuracy">
                     <p
-                      class="text-white position-absolute top-0 end-0 bg-danger p-1 border-0 rounded m-1"
+                      class="text-white position-absolute top-0 end-0 bg-danger border-0 rounded m-1"
                     >
                       ${showAccuracy}
                     </p>
-                    </div>
                   </div>
 
                   <div class="card-body text-center">
